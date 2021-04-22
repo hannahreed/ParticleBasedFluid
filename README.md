@@ -7,3 +7,4 @@ This project is a particle-based fluid simulation, using Smoothed Particle Hydro
 ## Running
 
 This project can be run as a Java project directly. The control panel will have configuration options.
+![image](https://github.com/hannahreed/ParticleBasedFluid/blob/main/images/controls.png)
