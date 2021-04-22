@@ -394,7 +394,7 @@ public class FluidSystem {
 
 	BooleanParameter includeObject = new BooleanParameter("include object", false);
 
-	DoubleParameter sigma = new DoubleParameter("tension coefficient", 72, 0, 100);
+	DoubleParameter sigma = new DoubleParameter("tension coefficient", 5, 0, 100);
 
 	DoubleParameter threshold = new DoubleParameter("tension threshold", 0, 0, 100);
 
