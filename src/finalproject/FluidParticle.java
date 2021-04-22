@@ -41,6 +41,8 @@ public class FluidParticle {
 	boolean tagged = false;
 	
 	int i, j;
+	
+	boolean secondary = false;;
 
 //	public gridCoordinates
 
@@ -60,7 +62,6 @@ public class FluidParticle {
 		this.p0 = 100;
 		this.i = (int) (pos.x / r);
 		this.j = (int) (pos.y / r);
-		
 	}
 	
 	public FluidParticle(double x, double y, double r, Vector2d vel) {
@@ -76,7 +77,10 @@ public class FluidParticle {
 		this.p0 = 100;
 		this.i = (int) (pos.x / r);
 		this.j = (int) (pos.y / r);
-		
+	}
+	
+	void setSecondary() {
+		this.secondary = true;
 	}
 
 	static private final int size = 30;
@@ -127,10 +131,8 @@ public class FluidParticle {
 
 		gl.glPushMatrix();
 
-		if (this.highlight || this.tagged) {
+		if (this.secondary) {
 			gl.glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-		} else if (this.isBoundaryParticle) {
-			gl.glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
 		} else {
 			gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
 		}

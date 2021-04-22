@@ -1,5 +1,6 @@
 package finalproject;
 
+import java.net.NoRouteToHostException;
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -34,6 +35,8 @@ public class FluidSystem {
 	int gridSize;
 
 	ExternalObject object;
+	boolean includedObj = false;
+	boolean includedSecondLiquid = false;
 
 	HashMap<FluidParticle, ArrayList<FluidParticle>> neighborhoods;
 
@@ -43,17 +46,26 @@ public class FluidSystem {
 
 		this.fluidGrid = new FluidGrid(N, N / 3, h);
 		this.fluidGrid.addClump(3);
+		if (twoLiquids.getValue()) {
+			this.fluidGrid.addClumpSecondary(N - 2);
+		}
 		calculateMasses();
 
 		this.neighborhoods = new HashMap<FluidParticle, ArrayList<FluidParticle>>();
-
-		this.object = new ExternalObject((N / 2) * h, (2) * h, 2);
+		this.object = null;
+		this.includedObj = false;
+		this.includedSecondLiquid = false;
+		
 
 	};
 
 	void calculateMasses() {
 		for (FluidParticle particle : fluidGrid.particles) {
-			particle.m = mass.getValue();
+			if (particle.secondary)
+				particle.m = mass2.getValue();
+			else {
+				particle.m = mass.getValue();
+			}
 		}
 	}
 
@@ -74,6 +86,21 @@ public class FluidSystem {
 	void advanceTime(double dt) {
 		// clear neighbors
 		neighborhoods.clear();
+
+		if (includeObject.getValue() && !includedObj) {
+			this.object = new ExternalObject((N / 2) * h, (2) * h, 2);
+			includedObj = true;
+		} else {
+//			includedObj = false;
+		}
+
+		if (twoLiquids.getValue() && !includedSecondLiquid) {
+			this.fluidGrid.addClumpSecondary(N / 2);
+			includedSecondLiquid = true;
+		} else {
+//			includedSecondLiquid = false;
+		}
+		calculateMasses();
 
 		if (particleGenerator.getValue() && elapsed > interval.getValue()) {
 			generateParticles();
@@ -146,11 +173,15 @@ public class FluidSystem {
 				fsurface.set(tmpN);
 				fsurface.scale(1 / tmpN.length());
 				fsurface.scale(cslp);
-				fsurface.scale(-theta.getValue());
+				fsurface.scale(-sigma.getValue());
 				force.add(fsurface);
 			}
 			fpressure.scale(-1);
-			fviscosity.scale(mu.getValue());
+			if (p.secondary)
+				fviscosity.scale(mu2.getValue());
+			else {
+				fviscosity.scale(mu.getValue());
+			}
 			fgravity.scale(gravity.getValue());
 			fgravity.scale(p.m);
 
@@ -343,7 +374,7 @@ public class FluidSystem {
 			object.display(drawable);
 	}
 
-	private IntParameter Nval = new IntParameter("num particles", 10, 4, 256);
+	private IntParameter Nval = new IntParameter("Dimensions", 10, 4, 256);
 
 	private DoubleParameter gravity = new DoubleParameter("gravity", 9.8, 0, 100);
 
@@ -351,18 +382,27 @@ public class FluidSystem {
 
 	DoubleParameter interval = new DoubleParameter("delay", 1, 0.01, 10);
 
-	DoubleParameter mu = new DoubleParameter("mu", 8.90E-4, 0, 1);
+	DoubleParameter mu = new DoubleParameter("viscosity coefficient for main liquid", 8.90E-4, 0, 1);
+
+	DoubleParameter mu2 = new DoubleParameter("viscosity coefficient for secondary liquid", 8.90E-4, 0, 1);
 
 	ArrayList<FluidParticle> boundaries = new ArrayList<FluidParticle>();
 
-	BooleanParameter particleGenerator = new BooleanParameter("generate particles", false);
+	BooleanParameter particleGenerator = new BooleanParameter("particle factory", false);
 
 	BooleanParameter dropObject = new BooleanParameter("drop object", false);
 
-	DoubleParameter theta = new DoubleParameter("tension coefficient", 72, 0, 100);
+	BooleanParameter includeObject = new BooleanParameter("include object", false);
+
+	DoubleParameter sigma = new DoubleParameter("tension coefficient", 72, 0, 100);
 
 	DoubleParameter threshold = new DoubleParameter("tension threshold", 0, 0, 100);
-	DoubleParameter mass = new DoubleParameter("mass", 18, 0, 100);
+
+	DoubleParameter mass = new DoubleParameter("mass for main liquid", 18, 0, 100);
+
+	DoubleParameter mass2 = new DoubleParameter("mass for secondary liquid", 18, 0, 100);
+
+	BooleanParameter twoLiquids = new BooleanParameter("two liquid types", false);
 
 	public JPanel getControls() {
 		VerticalFlowPanel vfp = new VerticalFlowPanel();
@@ -373,9 +413,13 @@ public class FluidSystem {
 		vfp.add(mu.getControls());
 		vfp.add(interval.getControls());
 		vfp.add(particleGenerator.getControls());
-		vfp.add(theta.getControls());
+		vfp.add(sigma.getControls());
 		vfp.add(threshold.getControls());
 		vfp.add(mass.getControls());
+		vfp.add(mu2.getControls());
+		vfp.add(twoLiquids.getControls());
+		vfp.add(mass2.getControls());
+		vfp.add(includeObject.getControls());
 		return vfp.getPanel();
 	}
 }

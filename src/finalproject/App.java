@@ -137,7 +137,6 @@ public class App implements SceneGraphNode, Interactor {
 	private IntParameter substeps = new IntParameter("sub steps (integer)", 1, 1, 100);
 
 	private BooleanParameter run = new BooleanParameter("animate", false);
-//	private IntParameter numParticles = new IntParameter("grid size", 10, 1, 100);
 	private boolean reset = false;
 	private BooleanParameter drawGrid = new BooleanParameter("draw grid", false);
 	private BooleanParameter drawBox = new BooleanParameter("draw box", false);

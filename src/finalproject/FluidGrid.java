@@ -81,16 +81,6 @@ public class FluidGrid extends Grid {
 
 	void initialize() {
 
-//		for (int i = 1; i < N - 1; i++) {
-//
-//			Random rand = new Random();
-//			double xv = rand.nextDouble() * 1.0;
-//			double x = rand.nextDouble() * (N - 1) * h;
-//			FluidParticle p = new FluidParticle(i * h, ((N - 2) * h) - h / 8, h, new Vector2d(0, 0));
-//			cells[IX(p.i, p.j)].addParticle(p);
-//			particles.add(p);
-//
-//		}
 		int top = (N / 2);
 		for (int i = 0; i < N - 1; i++) {
 			for (int j = top; j < N - 1; j++) {
@@ -141,46 +131,19 @@ public class FluidGrid extends Grid {
 			}
 		}
 	}
-//	
-//	void addClump(int top) {
-//		for (int i = 0; i < N-1; i++) {
-//			for (int j = top; j < N-1; j++) {
-//				Random rand = new Random();
-//				double xv = 0;//rand.nextDouble() * 1.0;
-//				FluidParticle p1 = new FluidParticle(i * h, j * h, h, new Vector2d(xv, 0));
-//				cells[IX(p1.i, p1.j)].addParticle(p1);
-//				particles.add(p1);
-//				FluidParticle p2 = new FluidParticle(i * h - h / 4, j * h, h, new Vector2d(xv, 0));
-//				cells[IX(p2.i, p2.j)].addParticle(p2);
-//				particles.add(p2);
-//				FluidParticle p3 = new FluidParticle(i * h + h / 4, j * h, h, new Vector2d(xv, 0));
-//				cells[IX(p3.i, p3.j)].addParticle(p3);
-//				particles.add(p3);
-//				FluidParticle p4 = new FluidParticle(i * h, j * h + h / 4, h, new Vector2d(xv, 0));
-//				cells[IX(p4.i, p4.j)].addParticle(p4);
-//				particles.add(p4);
-//
-//				FluidParticle p5 = new FluidParticle(i * h - h / 4, j * h + h / 4, h, new Vector2d(xv, 0));
-//				cells[IX(p5.i, p5.j)].addParticle(p5);
-//				particles.add(p5);
-//				FluidParticle p6 = new FluidParticle(i * h + h / 4, j * h + h / 4, h, new Vector2d(xv, 0));
-//				cells[IX(p6.i, p6.j)].addParticle(p6);
-//				particles.add(p6);
-//
-//				FluidParticle p7 = new FluidParticle(i * h - h / 4, j * h - h / 4, h, new Vector2d(xv, 0));
-//				cells[IX(p7.i, p7.j)].addParticle(p7);
-//				particles.add(p7);
-//				FluidParticle p8 = new FluidParticle(i * h + h / 4, j * h - h / 4, h, new Vector2d(xv, 0));
-//				cells[IX(p8.i, p8.j)].addParticle(p8);
-//				particles.add(p8);
-//				FluidParticle p9 = new FluidParticle(i * h, j * h - h / 4, h, new Vector2d(xv, 0));
-//				cells[IX(p9.i, p9.j)].addParticle(p9);
-//				particles.add(p9);
-//
-//			}
-//		}
-//		
-//	}
+	
+	void addClumpSecondary(int top) {
+		for (double i = 1 * h; i < (N - 2) * h; i += h / 4) {
+			for (double j = top * h; j < (N - 2) * h; j += h / 4) {
+				Random rand = new Random();
+				double xv = -1 + rand.nextDouble() * 2.0;
+				FluidParticle p = new FluidParticle(i, j, h, new Vector2d(xv, 0));
+				p.setSecondary();
+				cells[IX(p.i, p.j)].addParticle(p);
+				particles.add(p);
+			}
+		}
+	}
 
 	FluidCell getCell(int i, int j) {
 		return cells[IX(i, j)];
