@@ -45,16 +45,6 @@ class FluidCell extends Cell {
 
 		GL2 gl = drawable.getGL().getGL2();
 
-//		gl.glBegin(GL.GL_LINES);
-//
-//		for (FluidParticle p : particles) {
-//
-//			gl.glColor4f(1, 0, 0, 0.5f);
-//			gl.glVertex2d(p.pos.x, p.pos.y);
-//			gl.glVertex2d(p.pos.x + p.v.x, p.pos.y + p.v.y);
-//		}
-//
-//		gl.glEnd();
 
 		for (FluidParticle p : particles) {
 			p.display(drawable);

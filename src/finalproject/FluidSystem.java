@@ -47,7 +47,7 @@ public class FluidSystem {
 		this.fluidGrid = new FluidGrid(N, N / 3, h);
 		this.fluidGrid.addClump(3);
 		if (twoLiquids.getValue()) {
-			this.fluidGrid.addClumpSecondary(N - 2);
+			this.fluidGrid.addClumpSecondary(1);
 		}
 		calculateMasses();
 

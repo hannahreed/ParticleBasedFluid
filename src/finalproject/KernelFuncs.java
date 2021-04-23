@@ -4,8 +4,9 @@ import javax.vecmath.Vector2d;
 
 public class KernelFuncs {
 	/*
-	 * poly6 and viscosity kernel designed by Muller et al (2003) gradient and
-	 * laplacian calculations from Ertekin Unpublished Thesis
+	 * The following kernels are proposed for this purpose by Muller et al. (2003) 
+	 * poly6 and viscosity kernel designed by Muller et al. (2003) 
+	 * gradient and Laplacian calculations from Ertekin (2015)
 	 */
 
 	static double poly6(Vector2d r, double h) {

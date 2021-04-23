@@ -82,6 +82,8 @@ public class FluidParticle {
 	void setSecondary() {
 		this.secondary = true;
 	}
+	
+	// code for displaying a circle from previous assignments by Prof. Kry
 
 	static private final int size = 30;
 	static private FloatBuffer vertexBuffer;
@@ -92,7 +94,7 @@ public class FluidParticle {
 		ByteBuffer vbb = ByteBuffer.allocateDirect(numVertFloats * 4);
 		vbb.order(ByteOrder.nativeOrder());
 		vertexBuffer = vbb.asFloatBuffer();
-		ByteBuffer ibb = ByteBuffer.allocateDirect(size * 2); // size of short is 2
+		ByteBuffer ibb = ByteBuffer.allocateDirect(size * 2);
 		ibb.order(ByteOrder.nativeOrder());
 		indexBuffer = ibb.asShortBuffer();
 		for (int i = 0; i < size; i++) {
@@ -136,6 +138,8 @@ public class FluidParticle {
 		} else {
 			gl.glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
 		}
+		
+		// code for displaying a circle from previous assignments by Prof. Kry
 
 		gl.glTranslated(this.pos.x, this.pos.y, 0);
 		gl.glScaled(r, r, r);
@@ -147,13 +151,6 @@ public class FluidParticle {
 		gl.glPopMatrix();
 
 	}
-	
-//	DoubleParameter mass = new DoubleParameter("mass", 18, 0, 100);
-//	
-//	public JPanel getControls() {
-//		VerticalFlowPanel vfp = new VerticalFlowPanel();
-//		vfp.add(mass.getControls());
-//		return vfp.getPanel();
-//	}
+
 
 }

@@ -1,6 +1,7 @@
 package finalproject;
 
 import java.awt.Component;
+
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -31,6 +32,21 @@ import mintools.swing.VerticalFlowPanel;
 import mintools.viewer.EasyViewer;
 import mintools.viewer.Interactor;
 import mintools.viewer.SceneGraphNode;
+
+/*
+ * Final Project for COMP599 Fundamentals of Computer Animation at McGill University
+ * This project is an implementation of previously derived techniques. 
+ * The algorithm is an implementation of that seen in 
+ * 
+ * B. Ertekin. 2015. Fluid Simulation using Smoothed Particle Hydrodynamics [Unpublished master’s thesis]. (2015), 1–57.
+ * 
+ * which references 
+ * 
+ * M. Muller, D. Charypar, and M. Gross. 2003. Particle-based fluid simulation for 226
+ * interactive applications. Proceedings of the 2003 ACM SIGGRAPH/Eurographics Symposium on Computer Animation (2003), 154–159.
+ * 
+ * Some visualization code is from previous course assignments starter codes, written by Prof. Kry
+ */
 
 public class App implements SceneGraphNode, Interactor {
 
