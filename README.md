@@ -1,4 +1,4 @@
-# FinalProject
+# Particle Based Fluid Simulation with Smoothed Particle Hydrodynamics
 
 Final Project for COMP599 Fundamentals of Computer Animation at McGill University.
 
